@@ -35,7 +35,11 @@ library ieee;
 
 
 entity ALU is
--- TODO
+    Port( i_op : in std_logic_vector(2 downto 0);
+          i_B : in std_logic_vector(7 downto 0);
+          i_A : in std_logic_vector(7 downto 0);
+          o_result : out std_logic_vector(7 downto 0);
+          o_flags : out std_logic_vector(2 downto 0));
 end ALU;
 
 architecture behavioral of ALU is 
