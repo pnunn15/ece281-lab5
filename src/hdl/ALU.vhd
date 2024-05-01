@@ -84,12 +84,12 @@ begin
 	
 	-- CONCURRENT STATEMENTS ----------------------------
 	o_result <= w_result;
-	o_flags(2) <= w_Cout; -- carry flag
 	w_subtract <= not i_B;
 	-- MUXES --------------------------------------------
 	w_mathB <= i_B when i_op(2) = '0' else
 	           w_subtract;
-	-- ZERO FLAG --
+	-- FLAGS --------------------------------------------
+	o_flags(0) <= w_Cout; -- carry flag
 	o_flags(1) <= (    not w_result(7) and
 	                   not w_result(6) and
 	                   not w_result(5) and
@@ -98,7 +98,7 @@ begin
 	                   not w_result(2) and
 	                   not w_result(1) and
 	                   not w_result(0)); 
-	o_flags(0) <= w_result(7);
+	o_flags(2) <= w_result(7);
 	
 	
 end behavioral;
