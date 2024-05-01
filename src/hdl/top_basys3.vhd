@@ -64,20 +64,20 @@ architecture top_basys3_arch of top_basys3 is
               o_flags  : out std_logic_vector (2 downto 0));
     end component ALU;
     
---    component twoscomp_decimal is
---        Port ( i_bin  : in std_logic_vector (7 downto 0);
---               o_neg  : out std_logic_vector (3 downto 0);
---               o_hund : out std_logic_vector (3 downto 0);
---               o_tens : out std_logic_vector (3 downto 0);
---               o_ones : out std_logic_vector (3 downto 0));
---    end component twoscomp_decimal;
+    component twoscomp_decimal is
+        Port ( i_bin  : in std_logic_vector (7 downto 0);
+               o_neg  : out std_logic_vector (3 downto 0);
+               o_hund : out std_logic_vector (3 downto 0);
+               o_tens : out std_logic_vector (3 downto 0);
+               o_ones : out std_logic_vector (3 downto 0));
+    end component twoscomp_decimal;
     
     component TDM4 is
         generic ( constant k_WIDTH : natural  := 4); -- bits in input and output
         Port ( i_clk        : in  STD_LOGIC;
                i_reset      : in  STD_LOGIC; -- asynchronous
---               i_D3         : in  STD_LOGIC_VECTOR (k_WIDTH - 1 downto 0);
---               i_D2         : in  STD_LOGIC_VECTOR (k_WIDTH - 1 downto 0);
+               i_D3         : in  STD_LOGIC_VECTOR (k_WIDTH - 1 downto 0);
+               i_D2         : in  STD_LOGIC_VECTOR (k_WIDTH - 1 downto 0);
                i_D1         : in  STD_LOGIC_VECTOR (k_WIDTH - 1 downto 0);
                i_D0         : in  STD_LOGIC_VECTOR (k_WIDTH - 1 downto 0);
                o_data       : out STD_LOGIC_VECTOR (k_WIDTH - 1 downto 0);
@@ -111,10 +111,10 @@ architecture top_basys3_arch of top_basys3 is
     signal w_reg0_clk : STD_LOGIC := '1';
     signal f_Q1, f_Q1_next : std_logic_vector(7 downto 0) := "00000000";
     signal f_Q0, f_Q0_next : std_logic_vector(7 downto 0) := "00000000";
---    signal w_sign : STD_LOGIC_VECTOR (3 downto 0) := "0000";
---    signal w_hund : STD_LOGIC_VECTOR (3 downto 0) := "0000";
---    signal w_tens : STD_LOGIC_VECTOR (3 downto 0) := "0000";
---    signal w_ones : STD_LOGIC_VECTOR (3 downto 0) := "0000";
+    signal w_sign : STD_LOGIC_VECTOR (3 downto 0) := "0000";
+    signal w_hund : STD_LOGIC_VECTOR (3 downto 0) := "0000";
+    signal w_tens : STD_LOGIC_VECTOR (3 downto 0) := "0000";
+    signal w_ones : STD_LOGIC_VECTOR (3 downto 0) := "0000";
     
 begin
 	-- PORT MAPS ----------------------------------------
@@ -142,23 +142,23 @@ begin
            o_flags  => w_flags
         );
    
---    twscmpdec_inst:  twoscomp_decimal
---        Port map (
---           i_bin => w_output,
---           o_neg => w_sign,
---           o_hund => w_hund,
---           o_tens => w_tens,
---           o_ones => w_ones
---        );
+    twscmpdec_inst:  twoscomp_decimal
+        Port map (
+           i_bin => w_output,
+           o_neg => w_sign,
+           o_hund => w_hund,
+           o_tens => w_tens,
+           o_ones => w_ones
+        );
         
     tdm4_inst : TDM4
         Port map (
             i_clk        => w_clk,
             i_reset      => btnU,
---            i_D3         => w_sign,
---            i_D2         => w_hund,
-            i_D1         => w_output(7 downto 4),
-            i_D0         => w_output(3 downto 0),
+            i_D3         => w_sign,
+            i_D2         => w_hund,
+            i_D1         => w_tens,
+            i_D0         => w_ones,
             o_data       => w_ssd,
             o_sel        => w_sel
         );

@@ -67,7 +67,9 @@ begin
 	                     (i_D = x"4") or
 	                     (i_D = x"B") or
 	                     (i_D = x"C") or
-	                     (i_D = x"D") ) else '0';
+	                     (i_D = x"D") or
+	                     (i_D = x"E") or
+	                     (i_D = x"F") ) else '0';
 	o_S(1) <= '1' when ( (i_D = x"5") or
                          (i_D = x"6") or
                          (i_D = x"B") or
@@ -83,21 +85,27 @@ begin
                          (i_D = x"7") or
                          (i_D = x"9") or
                          (i_D = x"A") or
+                         (i_D = x"E") or
                          (i_D = x"F") ) else '0';
     o_S(4) <= '1' when ( (i_D = x"1") or
                          (i_D = x"3") or
                          (i_D = x"4") or
                          (i_D = x"5") or
                          (i_D = x"7") or
-                         (i_D = x"9") ) else '0';
+                         (i_D = x"9") or
+                         (i_D = x"E") or
+                         (i_D = x"F") ) else '0';
     o_S(5) <= '1' when ( (i_D = x"1") or
                          (i_D = x"2") or
                          (i_D = x"3") or
                          (i_D = x"7") or
                          (i_D = x"C") or
-                         (i_D = x"D") ) else '0';
+                         (i_D = x"D") or
+                         (i_D = x"E") or
+                         (i_D = x"F") ) else '0';
     o_S(6) <= '1' when ( (i_D = x"0") or
                          (i_D = x"1") or
-                         (i_D = x"7") ) else '0';
+                         (i_D = x"7") or
+                         (i_D = x"E") ) else '0';
 
 end sevenSegDecoder_arch;
