@@ -31,7 +31,7 @@ entity top_basys3 is
         clk     :   in std_logic; -- native 100MHz FPGA clock
         btnU    :   in std_logic; -- master reset
         btnC    :   in std_logic; -- advance cycle
-        sw      :   in std_logic_vector(10 downto 0);
+        sw      :   in std_logic_vector(7 downto 0);
         
         -- outputs
         led     :   out std_logic_vector (15 downto 0); -- flags
@@ -194,8 +194,8 @@ begin
 	w_Q1 <= f_Q1;
 	w_Q0 <= f_Q0;
 	-- NEXT STATE LOGIC ---------------------------------
-    f_Q1_next <= sw(10 downto 3);
-	f_Q0_next <= sw(10 downto 3);
+    f_Q1_next <= sw(7 downto 0);
+	f_Q0_next <= sw(7 downto 0);
 	
 	
 	-- MUXES --------------------------------------------
