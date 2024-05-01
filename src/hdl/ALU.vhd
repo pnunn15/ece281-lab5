@@ -23,7 +23,16 @@
 --|
 --| ALU OPCODES:
 --|
---|     ADD     000
+--|  Instruction | Opcode | Function |
+--| ------------ | ------ | -------- |
+--| AND          | 000    | A AND B  |
+--| OR           | 001    | A OR B   |
+--| SHIFT_L      | 010    | <<A      |
+--| ADD          | 011    | A + B    |
+--| AND (extra)  | 100    | A AND B  |
+--| OR (extra)   | 101    | A OR B   |
+--| SHIFT_R      | 110    | A>>      |
+--| SUB          | 111    | A - B    |
 --|
 --|
 --|
@@ -45,15 +54,44 @@ end ALU;
 architecture behavioral of ALU is 
   
 	-- declare components and signals
-
-  
+    component eightBitAdder is
+      Port ( i_A    : in std_logic_vector (7 downto 0);
+             i_B    : in std_logic_vector (7 downto 0);
+             i_Cin  : in std_logic;
+             o_S    : out std_logic_vector (7 downto 0);
+             o_Cout : out std_logic
+           );
+    end component eightBitAdder;
+    
+--    signal
+    signal w_flags : std_logic_vector (2 downto 0) := "000";
+    signal w_Cout : std_logic := '0';
+    signal w_result : std_logic_vector (7 downto 0) := "00000000";
+    
 begin
 	-- PORT MAPS ----------------------------------------
-
-	
+    eightbitadd_inst : eightBitAdder
+        Port map (
+	       i_A    => i_A,
+	       i_B    => i_B,
+	       i_Cin  => '0',
+	       o_S    => w_result,
+	       o_Cout => w_Cout
+	   );
 	
 	-- CONCURRENT STATEMENTS ----------------------------
-	
+	o_result <= w_result;
+	o_flags(2) <= w_Cout; -- carry flag
+	-- ZERO FLAG --
+	o_flags(1) <= (    not w_result(7) and
+	                   not w_result(6) and
+	                   not w_result(5) and
+	                   not w_result(4) and
+	                   not w_result(3) and
+	                   not w_result(2) and
+	                   not w_result(1) and
+	                   not w_result(0)); 
+	o_flags(0) <= '0';
 	
 	
 end behavioral;
