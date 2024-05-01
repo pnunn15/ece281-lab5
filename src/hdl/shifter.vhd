@@ -32,7 +32,11 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity shifter is
---  Port ( );
+  Port ( i_A : in std_logic_vector (7 downto 0);
+         i_B : in std_logic_vector (7 downto 0);
+         i_LorR : in std_logic;
+         o_result : out std_logic_vector (7 downto 0)
+  );
 end shifter;
 
 architecture Behavioral of shifter is
