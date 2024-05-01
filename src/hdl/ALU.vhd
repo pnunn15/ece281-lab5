@@ -117,7 +117,7 @@ begin
 	            w_shifter when (i_op(1) = '1' and i_op(0) = '0') else
 	            w_mathResult;
 	-- FLAGS --------------------------------------------
-	o_flags(2) <= w_Cout and w_isMath; -- carry flag
+	o_flags(0) <= w_Cout and w_isMath; -- carry flag
 	o_flags(1) <= (    not w_result(7) and -- zero flag
 	                   not w_result(6) and
 	                   not w_result(5) and
@@ -126,7 +126,7 @@ begin
 	                   not w_result(2) and
 	                   not w_result(1) and
 	                   not w_result(0)); 
-	o_flags(0) <= w_result(7); -- negative flag
+	o_flags(2) <= w_result(7); -- negative flag
 	
 	
 end behavioral;

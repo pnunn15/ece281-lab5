@@ -21,15 +21,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-
--- Uncomment the following library declaration if using
--- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
-
--- Uncomment the following library declaration if instantiating
--- any Xilinx leaf cells in this code.
---library UNISIM;
---use UNISIM.VComponents.all;
+use IEEE.NUMERIC_STD.ALL;
 
 entity shifter is
   Port ( i_A : in std_logic_vector (7 downto 0);
@@ -40,8 +32,14 @@ entity shifter is
 end shifter;
 
 architecture Behavioral of shifter is
-
+    signal w_sLeft : std_logic_vector (7 downto 0) := "00000000";
+    signal w_sRight : std_logic_vector (7 downto 0) := "00000000";
 begin
-
+    w_sLeft <= std_logic_vector(shift_left(unsigned(i_A), to_integer(unsigned(i_B(2 downto 0)))));
+    w_sRight <= std_logic_vector(shift_right(unsigned(i_A), to_integer(unsigned(i_B(2 downto 0)))));
+    
+    -- MUX ---------------------------------
+    o_result <= w_sLeft when i_LorR = '0' else
+                w_sRight;
 
 end Behavioral;
