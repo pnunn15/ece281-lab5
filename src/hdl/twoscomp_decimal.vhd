@@ -26,10 +26,10 @@ begin
     begin
         binary_value := to_integer(signed(i_bin));
         if binary_value < 0 then
-            o_neg <= "1111";
+            o_neg <= "0001";
             decimal_value := -binary_value;
         else
-            o_neg <= "1110";
+            o_neg <= "0000";
             decimal_value := binary_value;
         end if;
         

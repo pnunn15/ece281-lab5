@@ -67,29 +67,22 @@ architecture behavioral of ALU is
     signal w_flags : std_logic_vector (2 downto 0) := "000";
     signal w_Cout : std_logic := '0';
     signal w_result : std_logic_vector (7 downto 0) := "00000000";
-    signal w_mathB : std_logic_vector (7 downto 0) := "00000000";
-    signal w_subtract : std_logic_vector (7 downto 0) := "00000000";
-    
     
 begin
 	-- PORT MAPS ----------------------------------------
     eightbitadd_inst : eightBitAdder
         Port map (
 	       i_A    => i_A,
-	       i_B    => w_mathB,
-	       i_Cin  => i_op(2),
+	       i_B    => i_B,
+	       i_Cin  => '0',
 	       o_S    => w_result,
 	       o_Cout => w_Cout
 	   );
 	
 	-- CONCURRENT STATEMENTS ----------------------------
 	o_result <= w_result;
-	o_flags(2) <= w_Cout; -- carry flag
-	w_subtract <= not i_B;
-	-- MUXES --------------------------------------------
-	w_mathB <= i_B when i_op(2) = '0' else
-	           w_subtract;
-	-- ZERO FLAG --
+	-- FLAGS --
+	o_flags(0) <= w_Cout; -- carry flag
 	o_flags(1) <= (    not w_result(7) and
 	                   not w_result(6) and
 	                   not w_result(5) and
@@ -98,7 +91,7 @@ begin
 	                   not w_result(2) and
 	                   not w_result(1) and
 	                   not w_result(0)); 
-	o_flags(0) <= w_result(7);
+	o_flags(2) <= '0';
 	
 	
 end behavioral;
